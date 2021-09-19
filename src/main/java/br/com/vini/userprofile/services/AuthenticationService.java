@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.vini.userprofile.exceptions.InvalidEmailAndPasswordException;
 import br.com.vini.userprofile.exceptions.InvalidPasswordException;
+import br.com.vini.userprofile.exceptions.UsernameTokenMismatch;
 import br.com.vini.userprofile.model.UserProfile;
 import br.com.vini.userprofile.repository.UserProfileRepository;
 import br.com.vini.userprofile.security.utils.JwtUtil;
@@ -36,7 +37,7 @@ public class AuthenticationService {
     
     public UserProfile login(String email, String senha) throws Exception {
 	UserProfile userProfile = null;
-
+	
 	try {
 	    final UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 	    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, senha));
@@ -54,6 +55,12 @@ public class AuthenticationService {
 	}
 	
 	return userProfile;
+    }
+    
+    public void validateUsernameTokenFromDb(String email, String token) throws UsernameTokenMismatch {
+	UserProfile userProfile = userProfileRepository.findByEmail(email);
+	if (!token.equals(userProfile.getToken()))
+	    throw new UsernameTokenMismatch("Token inválido");
     }
     
 }

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import br.com.vini.userprofile.exceptions.EmailAlreadyRegisteredException;
 import br.com.vini.userprofile.exceptions.InvalidEmailAndPasswordException;
 import br.com.vini.userprofile.exceptions.InvalidPasswordException;
+import br.com.vini.userprofile.exceptions.UserProfileNotFoundException;
+import io.jsonwebtoken.SignatureException;
 
 @RestControllerAdvice
 public class ErrorHandler {
@@ -27,6 +29,18 @@ public class ErrorHandler {
     @ResponseStatus(code = HttpStatus.OK)
     @ExceptionHandler(InvalidEmailAndPasswordException.class)
     public ErrorMessageDto handleInvalidEmailAndPasswordException(Exception exception) {
+	return new ErrorMessageDto(exception.getMessage());
+    }
+    
+    @ResponseStatus(code = HttpStatus.OK)
+    @ExceptionHandler(UserProfileNotFoundException.class)
+    public ErrorMessageDto handleUserProfileNotFoundException(UserProfileNotFoundException userProfileNotFoundException) {
+	return new ErrorMessageDto(userProfileNotFoundException.getMessage());
+    }
+
+    @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public ErrorMessageDto handleException(Exception exception) {
 	return new ErrorMessageDto(exception.getMessage());
     }
     

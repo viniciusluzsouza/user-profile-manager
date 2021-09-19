@@ -1,11 +1,13 @@
 package br.com.vini.userprofile.services;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.vini.userprofile.exceptions.EmailAlreadyRegisteredException;
+import br.com.vini.userprofile.exceptions.UserProfileNotFoundException;
 import br.com.vini.userprofile.model.Phone;
 import br.com.vini.userprofile.model.UserProfile;
 import br.com.vini.userprofile.repository.PhoneRepository;
@@ -32,6 +34,15 @@ public class UserProfileManagerService {
 	    phoneRepository.save(phone);
 	});
 	
+	return userProfile;
+    }
+
+    public UserProfile getUserProfileById(String id) {
+	UserProfile userProfile = userProfileRepository.findById(UUID.fromString(id));
+
+	if (userProfile == null)
+	    throw new UserProfileNotFoundException("Perfil de usuário não encontrado");
+
 	return userProfile;
     }
     

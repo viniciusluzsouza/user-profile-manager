@@ -2,6 +2,7 @@ package br.com.vini.userprofile.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import br.com.vini.userprofile.security.filters.JwtRequestFilter;
 import br.com.vini.userprofile.security.utils.JwtUtil;
+import br.com.vini.userprofile.validation.AuthorizationErrorHandler;
 
 @EnableWebSecurity
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
@@ -24,6 +26,10 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
     
+    @Autowired
+    private AuthorizationErrorHandler authorizationErrorHandler;
+    
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -32,7 +38,17 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         .and().sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         
+        http.exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
+            authorizationErrorHandler.setDefaultErrorResponse(HttpStatus.BAD_REQUEST, response);
+        });
+        
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+    
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // TODO Auto-generated method stub
+        super.configure(auth);
     }
     
     @Override
@@ -44,6 +60,11 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
 	return NoOpPasswordEncoder.getInstance();
+    }
+    
+    @Bean
+    public AuthorizationErrorHandler authorizationErrorHandler() {
+	return new AuthorizationErrorHandler();
     }
     
 //    @Bean
@@ -60,4 +81,5 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 	auth.userDetailsService(userDetailsService);
     }
+    
 }
