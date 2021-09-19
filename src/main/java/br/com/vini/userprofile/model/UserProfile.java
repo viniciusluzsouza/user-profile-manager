@@ -36,7 +36,7 @@ public class UserProfile {
     public UserProfile() {
 	super();
     }
-
+    
     public UserProfile(String name, String email, String password, List<Phone> phones) {
 	super();
 	this.name = name;
@@ -46,7 +46,7 @@ public class UserProfile {
 	this.created = LocalDateTime.now();
 	this.modified = this.created;
     }
-
+    
     public UUID getId() {
 	return id;
     }
@@ -88,13 +88,13 @@ public class UserProfile {
     }
     
     public String getToken() {
-        return token;
+	return token;
     }
-
+    
     public void setToken(String token) {
-        this.token = token;
+	this.token = token;
     }
-
+    
     @Override
     public int hashCode() {
 	final int prime = 31;
@@ -143,35 +143,33 @@ public class UserProfile {
 	    return false;
 	return true;
     }
-
+    
     public LocalDateTime getCreated() {
-        return created;
+	return created;
     }
-
+    
     public void setCreated(LocalDateTime created) {
-        this.created = created;
+	this.created = created;
     }
-
+    
     public LocalDateTime getModified() {
-        return modified;
+	return modified;
     }
-
+    
     public void setModified(LocalDateTime modified) {
-        this.modified = modified;
+	this.modified = modified;
     }
-
+    
     public LocalDateTime getLastLogin() {
-        return lastLogin;
+	return lastLogin;
     }
-
+    
     public void setLastLogin(LocalDateTime last_login) {
-        this.lastLogin = last_login;
+	this.lastLogin = last_login;
     }
     
-    
-    
-//    public void encryptPassword(BCryptPasswordEncoder bCryptPasswordEncoder) {
-//	this.password = bCryptPasswordEncoder.encode(password);
-//    }
+    // public void encryptPassword(BCryptPasswordEncoder bCryptPasswordEncoder) {
+    // this.password = bCryptPasswordEncoder.encode(password);
+    // }
     
 }

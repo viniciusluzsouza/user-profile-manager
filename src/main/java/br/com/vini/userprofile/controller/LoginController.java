@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.vini.userprofile.dto.UserProfileDto;
-import br.com.vini.userprofile.form.LoginForm;
+import br.com.vini.userprofile.messages.dto.UserProfileDto;
+import br.com.vini.userprofile.messages.form.LoginForm;
 import br.com.vini.userprofile.services.AuthenticationService;
 
 @RestController

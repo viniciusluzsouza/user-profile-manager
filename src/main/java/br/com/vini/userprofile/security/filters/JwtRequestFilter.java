@@ -16,13 +16,13 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import br.com.vini.userprofile.error.AuthorizationErrorHandler;
 import br.com.vini.userprofile.exceptions.InvalidEmailAndPasswordException;
 import br.com.vini.userprofile.exceptions.UsernameTokenMismatch;
+import br.com.vini.userprofile.messages.error.ErrorMessageDto;
 import br.com.vini.userprofile.security.services.MyUserDetailsService;
 import br.com.vini.userprofile.security.utils.JwtUtil;
 import br.com.vini.userprofile.services.AuthenticationService;
-import br.com.vini.userprofile.validation.AuthorizationErrorHandler;
-import br.com.vini.userprofile.validation.ErrorMessageDto;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.SignatureException;
@@ -54,7 +54,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		jwt = authorizationHeader.substring(7);
 		username = jwtUtil.extractUsername(jwt);
 		authenticationService.validateUsernameTokenFromDb(username, jwt);
-	    }	    
+	    }
 	    
 	    if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 		UserDetails userDetails = this.userDetailService.loadUserByUsername(username);
@@ -66,7 +66,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	    }
 	    
 	    filterChain.doFilter(request, response);
-
+	    
 	} catch (SignatureException | UsernameTokenMismatch e) {
 	    authorizationErrorHandler.setDefaultErrorResponse(HttpStatus.UNAUTHORIZED, response);
 	} catch (ExpiredJwtException e) {

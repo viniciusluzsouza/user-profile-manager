@@ -36,13 +36,13 @@ public class UserProfileManagerService {
 	
 	return userProfile;
     }
-
+    
     public UserProfile getUserProfileById(String id) {
 	UserProfile userProfile = userProfileRepository.findById(UUID.fromString(id));
-
+	
 	if (userProfile == null)
 	    throw new UserProfileNotFoundException("Perfil de usuário não encontrado");
-
+	
 	return userProfile;
     }
     

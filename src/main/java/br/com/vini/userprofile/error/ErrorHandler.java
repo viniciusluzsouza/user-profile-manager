@@ -1,4 +1,4 @@
-package br.com.vini.userprofile.validation;
+package br.com.vini.userprofile.error;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,6 +9,7 @@ import br.com.vini.userprofile.exceptions.EmailAlreadyRegisteredException;
 import br.com.vini.userprofile.exceptions.InvalidEmailAndPasswordException;
 import br.com.vini.userprofile.exceptions.InvalidPasswordException;
 import br.com.vini.userprofile.exceptions.UserProfileNotFoundException;
+import br.com.vini.userprofile.messages.error.ErrorMessageDto;
 import io.jsonwebtoken.SignatureException;
 
 @RestControllerAdvice
@@ -37,7 +38,7 @@ public class ErrorHandler {
     public ErrorMessageDto handleUserProfileNotFoundException(UserProfileNotFoundException userProfileNotFoundException) {
 	return new ErrorMessageDto(userProfileNotFoundException.getMessage());
     }
-
+    
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ErrorMessageDto handleException(Exception exception) {

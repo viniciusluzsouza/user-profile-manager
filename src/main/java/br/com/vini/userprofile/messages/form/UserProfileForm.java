@@ -1,4 +1,4 @@
-package br.com.vini.userprofile.form;
+package br.com.vini.userprofile.messages.form;
 
 import java.util.List;
 
@@ -10,47 +10,50 @@ import br.com.vini.userprofile.model.UserProfile;
 
 public class UserProfileForm {
     
-    @NotNull @NotEmpty
+    @NotNull
+    @NotEmpty
     private String name;
     
-    @NotNull @NotEmpty
+    @NotNull
+    @NotEmpty
     private String email;
     
-    @NotNull @NotEmpty
+    @NotNull
+    @NotEmpty
     private String password;
-
+    
     private List<Phone> phones;
-
+    
     public String getName() {
-        return name;
+	return name;
     }
-
+    
     public void setName(String name) {
-        this.name = name;
+	this.name = name;
     }
-
+    
     public String getEmail() {
-        return email;
+	return email;
     }
-
+    
     public void setEmail(String email) {
-        this.email = email;
+	this.email = email;
     }
-
+    
     public String getPassword() {
-        return password;
+	return password;
     }
-
+    
     public void setPassword(String password) {
-        this.password = password;
+	this.password = password;
     }
-
+    
     public List<Phone> getPhones() {
-        return phones;
+	return phones;
     }
-
+    
     public void setPhones(List<Phone> phones) {
-        this.phones = phones;
+	this.phones = phones;
     }
     
     public UserProfile getUserProfile() {

@@ -1,4 +1,4 @@
-package br.com.vini.userprofile.dto;
+package br.com.vini.userprofile.messages.dto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,9 +29,9 @@ public class UserProfileDto {
 	this.modified = userProfile.getModified();
 	this.last_login = userProfile.getLastLogin();
 	this.token = userProfile.getToken();
-	this.phones = userProfile.getPhones().stream().map(PhoneDto::new).collect(Collectors.toList()); 
+	this.phones = userProfile.getPhones().stream().map(PhoneDto::new).collect(Collectors.toList());
     }
-
+    
     public String getName() {
 	return name;
     }
@@ -95,11 +95,11 @@ public class UserProfileDto {
     public void setToken(String token) {
 	this.token = token;
     }
-
+    
     public String getId() {
 	return id;
     }
-
+    
     public void setId(String id) {
 	this.id = id;
     }

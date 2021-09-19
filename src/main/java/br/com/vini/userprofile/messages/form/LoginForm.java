@@ -1,4 +1,4 @@
-package br.com.vini.userprofile.form;
+package br.com.vini.userprofile.messages.form;
 
 public class LoginForm {
     

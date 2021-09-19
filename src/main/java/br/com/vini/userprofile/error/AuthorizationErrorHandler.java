@@ -1,8 +1,10 @@
-package br.com.vini.userprofile.validation;
+package br.com.vini.userprofile.error;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
+
+import br.com.vini.userprofile.messages.error.ErrorMessageDto;
 
 public class AuthorizationErrorHandler {
     

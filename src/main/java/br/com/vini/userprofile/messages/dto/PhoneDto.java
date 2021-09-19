@@ -1,4 +1,4 @@
-package br.com.vini.userprofile.dto;
+package br.com.vini.userprofile.messages.dto;
 
 import br.com.vini.userprofile.model.Phone;
 
