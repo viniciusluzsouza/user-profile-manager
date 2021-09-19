@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.vini.userprofile.exceptions.EmailAlreadyRegisteredException;
@@ -22,12 +23,16 @@ public class UserProfileManagerService {
     @Autowired
     private PhoneRepository phoneRepository;
     
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    
     public UserProfile create(String name, String email, String password, List<Phone> phones) {
 	UserProfile userProfile = new UserProfile(name, email, password, phones);
 	
 	if (userProfileRepository.findByEmail(userProfile.getEmail()) != null)
 	    throw new EmailAlreadyRegisteredException("E-mail já existente");
 	
+	userProfile.setPassword(this.bCryptPasswordEncoder.encode(password));
 	userProfileRepository.save(userProfile);
 	userProfile.getPhones().forEach(phone -> {
 	    phone.setUserProfile(userProfile);

@@ -33,8 +33,9 @@ public class RegisterController {
     @Transactional
     public ResponseEntity<UserProfileDto> register(@RequestBody @Valid UserProfileForm form, UriComponentsBuilder uriBuilder) throws Exception {
 	UserProfile userProfile = userProfileManagerService.create(form.getName(), form.getEmail(), form.getPassword(), form.getPhones());
-	authenticationService.login(userProfile.getEmail(), userProfile.getPassword());
+	authenticationService.login(userProfile.getEmail(), form.getPassword());
 	UserProfileDto userProfileDto = new UserProfileDto(userProfile);
+	userProfileDto.setPassword(form.getPassword());	// Return the plain password
 	URI uri = uriBuilder.path("/register/{id}").buildAndExpand(userProfile.getId()).toUri();
 	return ResponseEntity.created(uri).body(userProfileDto);
     }

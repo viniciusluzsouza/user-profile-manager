@@ -10,8 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import br.com.vini.userprofile.error.AuthorizationErrorHandler;
@@ -42,20 +41,9 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     }
     
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-	// TODO Auto-generated method stub
-	super.configure(auth);
-    }
-    
-    @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
 	return super.authenticationManagerBean();
-    }
-    
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-	return NoOpPasswordEncoder.getInstance();
     }
     
     @Bean
@@ -63,19 +51,19 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	return new AuthorizationErrorHandler();
     }
     
-    // @Bean
-    // public BCryptPasswordEncoder bCryptPasswordEncoder() {
-    // return new BCryptPasswordEncoder();
-    // }
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+	return new BCryptPasswordEncoder();
+    }
     
     @Bean
     public JwtUtil jwtUtilBean() throws Exception {
 	return new JwtUtil();
     }
     
-    @Autowired
-    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-	auth.userDetailsService(userDetailsService);
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+	auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
     
 }
