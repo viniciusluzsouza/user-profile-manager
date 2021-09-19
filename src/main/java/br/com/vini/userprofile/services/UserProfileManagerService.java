@@ -42,11 +42,16 @@ public class UserProfileManagerService {
 	return userProfile;
     }
     
-    public UserProfile getUserProfileById(String id) {
-	UserProfile userProfile = userProfileRepository.findById(UUID.fromString(id));
+    public UserProfile getUserProfileById(String auth, String id) {
+	UserProfile userProfile = null;
+	String token = auth.substring(7);
+	UserProfile userProfileFromToken = userProfileRepository.findByToken(token);
 	
-	if (userProfile == null)
+	if (id.equals(userProfileFromToken.getId().toString())) {
+	    userProfile = userProfileRepository.findById(UUID.fromString(id));
+	} else {
 	    throw new UserProfileNotFoundException("Perfil de usuário não encontrado");
+	}
 	
 	return userProfile;
     }

@@ -12,4 +12,6 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, String
     
     UserProfile findById(UUID id);
     
+    UserProfile findByToken(String token);
+    
 }
