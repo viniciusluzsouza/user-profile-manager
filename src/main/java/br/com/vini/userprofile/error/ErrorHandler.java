@@ -27,7 +27,7 @@ public class ErrorHandler {
 	return new ErrorMessageDto(invalidPasswordException.getMessage());
     }
     
-    @ResponseStatus(code = HttpStatus.OK)
+    @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(InvalidEmailAndPasswordException.class)
     public ErrorMessageDto handleInvalidEmailAndPasswordException(Exception exception) {
 	return new ErrorMessageDto(exception.getMessage());
