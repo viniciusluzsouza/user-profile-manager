@@ -1,7 +1,0 @@
-FROM openjdk:11
-RUN apt update && apt install maven -y
-RUN mkdir /app
-WORKDIR /app
-COPY . .
-EXPOSE 8080
-CMD ["mvn", "spring-boot:run"]
