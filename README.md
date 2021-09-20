@@ -51,4 +51,11 @@ Para executar o sistema, é necessário o JAVA na versão 11 e maven 3.6.0.
 
 Para parar o sistema, execute CTRL + C.
 
+Também é possível executar via docker. Para isto, utilize o comando a seguir:
+
+    $ [sudo] docker-compose up
+
+Para parar o contêiner, execute:
+
+    $ [sudo] docker-compose down
 
