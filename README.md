@@ -59,3 +59,4 @@ Para parar o contêiner, execute:
 
     $ [sudo] docker-compose down
 
+Obs.: para utilizar o docker, o BuildKit deve estar habilitado. Detalhes para ativação do BuildKit: https://docs.docker.com/develop/develop-images/build_enhancements/
