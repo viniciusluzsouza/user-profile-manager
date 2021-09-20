@@ -10,7 +10,6 @@ import br.com.vini.userprofile.exceptions.InvalidEmailAndPasswordException;
 import br.com.vini.userprofile.exceptions.InvalidPasswordException;
 import br.com.vini.userprofile.exceptions.UserProfileNotFoundException;
 import br.com.vini.userprofile.messages.error.ErrorMessageDto;
-import io.jsonwebtoken.SignatureException;
 
 @RestControllerAdvice
 public class ErrorHandler {
