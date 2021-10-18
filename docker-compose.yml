@@ -4,5 +4,6 @@ services:
     userprofile:
         build: .
         ports:
-            - "8080:8080"
+            - "45800:45800"
         container_name: userprofile-container
+        image: user-profile-manager

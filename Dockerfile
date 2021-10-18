@@ -8,11 +8,10 @@ COPY src ./src
 RUN --mount=type=cache,target=/root/.m2 mvn clean package  -Dmaven.test.skip
 
 ##### final #####
-FROM openjdk:11
+FROM adoptopenjdk/openjdk11:jre-11.0.12_7-alpine
+RUN mkdir /app
 WORKDIR /app
 
-COPY --from=builder /app/target/*.jar ./
+COPY --from=builder /app/target/userprofile-manager.jar /app
 
-EXPOSE 8080
-ENV JAVA_OPTS ""
-CMD [ "bash", "-c", "java ${JAVA_OPTS} -jar *.jar -v"]
+CMD [ "java", "-Dserver.port=45800", "-jar", "userprofile-manager.jar", "-v" ]
